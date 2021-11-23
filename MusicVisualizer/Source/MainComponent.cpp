@@ -29,6 +29,8 @@ MainComponent::MainComponent() : forwardFFT(fftOrder),
     
     formatManager.registerBasicFormats();
     transportSource.addChangeListener(this);
+    
+    addAndMakeVisible(fftCircleComponent);
 
     // Some platforms require permissions to open input channels so request that here
     if (juce::RuntimePermissions::isRequired (juce::RuntimePermissions::recordAudio)
@@ -88,6 +90,8 @@ void MainComponent::resized()
     openButton.setBounds(10, 10, getWidth() - 20, 30);
     playButton.setBounds(10, 50, getWidth() - 20, 30);
     stopButton.setBounds(10, 90, getWidth() - 20, 30);
+    
+    fftCircleComponent.setBounds((getWidth() / 2) - 350, (getHeight() / 2) -350, 700, 700);
 }
 
 void MainComponent::timerCallback()
@@ -115,15 +119,38 @@ void MainComponent::timerCallback()
     }
     
     // Randomly generate new particles
-    if (Random::getSystemRandom().nextInt(100) < 10)
+    if (Random::getSystemRandom().nextInt(100) < 10){
         addAndMakeVisible(particlesTopLeft.add(new ParticleComponent (centrePoint, 4.0f, -6.0f)));
         
+        for (int i = 0; i < particlesTopLeft.size(); i++)
+        {
+            particlesTopLeft.operator[](i)->toBehind(&fftCircleComponent);
+        }
+    }
     if (Random::getSystemRandom().nextInt(100) < 10)
+    {
         addAndMakeVisible(particlesTopRight.add(new ParticleComponent (centrePoint, -4.0f, -6.0f)));
+        for (int i = 0; i < particlesTopRight.size(); i++)
+        {
+            particlesTopRight.operator[](i)->toBehind(&fftCircleComponent);
+        }
+    }
     if (Random::getSystemRandom().nextInt(100) < 10)
+    {
         addAndMakeVisible(particlesBottomLeft.add(new ParticleComponent (centrePoint, -4.0f, 6.0f)));
+        for (int i = 0; i < particlesBottomLeft.size(); i++)
+        {
+            particlesBottomLeft.operator[](i)->toBehind(&fftCircleComponent);
+        }
+    }
     if (Random::getSystemRandom().nextInt(100) < 10)
+    {
         addAndMakeVisible(particlesBottomRight.add(new ParticleComponent (centrePoint, 4.0f, 6.0f)));
+        for (int i = 0; i < particlesBottomRight.size(); i++)
+        {
+            particlesBottomRight.operator[](i)->toBehind(&fftCircleComponent);
+        }
+    }
 }
 
 void MainComponent::changeListenerCallback (juce::ChangeBroadcaster* source)

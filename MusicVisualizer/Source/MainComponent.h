@@ -7,6 +7,7 @@
 #include<stdlib.h>
 
 #include"ParticleComponent.h"
+#include "FFTCircleComponent.h"
 
 
 //==============================================================================
@@ -91,6 +92,8 @@ private:
     OwnedArray<ParticleComponent> particlesTopRight;
     OwnedArray<ParticleComponent> particlesBottomLeft;
     OwnedArray<ParticleComponent> particlesBottomRight;
+    
+    FFTCircleComponent fftCircleComponent;
 
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (MainComponent)
