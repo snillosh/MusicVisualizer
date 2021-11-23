@@ -3,6 +3,20 @@
 <JUCERPROJECT id="VDNnSS" name="MusicVisualizer" projectType="guiapp" useAppConfig="0"
               addUsingNamespaceToJuceHeader="1" displaySplashScreen="1" jucerFormatVersion="1">
   <MAINGROUP id="csLJ2A" name="MusicVisualizer">
+    <GROUP id="{11EB6006-AF54-F27F-FC67-01B9B6C7D8D3}" name="Images">
+      <GROUP id="{454FC19C-0B83-D5E2-26FB-BE7CBD9F9336}" name="BS AU-logos">
+        <FILE id="cV1l52" name="BS AU-logos_black.png" compile="0" resource="1"
+              file="../../../Waveshape Circle Test 2/Waveshape Circle Test 2/Images/BS AU-logos/BS AU-logos_black.png"/>
+        <FILE id="KUTgr6" name="BS AU-logos_white.png" compile="0" resource="1"
+              file="../../../Waveshape Circle Test 2/Waveshape Circle Test 2/Images/BS AU-logos/BS AU-logos_white.png"/>
+        <FILE id="eRIVi9" name="BSAULogos.jpeg" compile="0" resource="1" file="../../../Waveshape Circle Test 2/Waveshape Circle Test 2/Images/BS AU-logos/BSAULogos.jpeg"/>
+        <FILE id="BbVgdJ" name="BSAULogosModified.png" compile="0" resource="1"
+              file="../../../Waveshape Circle Test 2/Waveshape Circle Test 2/Images/BS AU-logos/BSAULogosModified.png"/>
+        <FILE id="tF4wT7" name="logo_info.txt" compile="0" resource="1" file="../../../Waveshape Circle Test 2/Waveshape Circle Test 2/Images/BS AU-logos/logo_info.txt"/>
+        <FILE id="ns97l0" name="LOGOTRANS.png" compile="0" resource="1" file="../../../Waveshape Circle Test 2/Waveshape Circle Test 2/Images/BS AU-logos/LOGOTRANS.png"/>
+      </GROUP>
+      <FILE id="c1EtZd" name="BS AU-logos.zip" compile="0" resource="1" file="../../../Waveshape Circle Test 2/Waveshape Circle Test 2/Images/BS AU-logos.zip"/>
+    </GROUP>
     <GROUP id="{D7EEFA26-DB59-700E-B873-204737FF5932}" name="Source">
       <FILE id="Bc19ly" name="ParticleComponent.cpp" compile="1" resource="0"
             file="Source/ParticleComponent.cpp"/>

@@ -91,7 +91,7 @@ void MainComponent::resized()
     playButton.setBounds(10, 50, getWidth() - 20, 30);
     stopButton.setBounds(10, 90, getWidth() - 20, 30);
     
-    fftCircleComponent.setBounds((getWidth() / 2) - 350, (getHeight() / 2) -350, 700, 700);
+    fftCircleComponent.setBounds(getLocalBounds());
 }
 
 void MainComponent::timerCallback()
