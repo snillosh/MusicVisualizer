@@ -14,9 +14,10 @@
 //==============================================================================
 FFTCircleComponent::FFTCircleComponent()
 {
-    // In your constructor, you should add any child components, and
-    // initialise any special settings that your component needs.
-
+    for (int i = 0; i < FFTCircleData::scopeSize; i++)
+    {
+        scopeData[i] = 0;
+    }
 }
 
 FFTCircleComponent::~FFTCircleComponent()
@@ -25,6 +26,15 @@ FFTCircleComponent::~FFTCircleComponent()
 
 void FFTCircleComponent::paint (juce::Graphics& g)
 {
+    for (int i = 0; i < FFTCircleData::scopeSize; i++)
+    {
+        scopeData[i] = fftCircleData.getScopeDataAtIndex(i);
+        if (scopeData[i] < 0)
+        {
+            scopeData[i] = 0;
+        }
+    }
+    
     auto logo = juce::ImageCache::getFromMemory(BinaryData::LOGOTRANS_png, BinaryData::LOGOTRANS_pngSize);
     auto logoScaled = logo.rescaled(400, 400);
     
@@ -46,7 +56,7 @@ void FFTCircleComponent::paint (juce::Graphics& g)
     
     for (int i = 0; i < static_cast<int>(centreCirclePath.getLength() / 2); i++)
     {
-        auto lineLeft = juce::Line<float>::fromStartAndAngle(pathPoint[i], /* scopeData[i] **/ 400.f, lineAngleLeft);
+        auto lineLeft = juce::Line<float>::fromStartAndAngle(pathPoint[i], scopeData[i] * 400.f, lineAngleLeft);
         if (i % 2 == 0)
             g.setColour(juce::Colour (0, 128, i / 2));
         
@@ -60,7 +70,7 @@ void FFTCircleComponent::paint (juce::Graphics& g)
     
     for (int i = static_cast<int>(centreCirclePath.getLength()); i > static_cast<int>(centreCirclePath.getLength()) / 2; i--)
     {
-        auto lineRight = juce::Line<float>::fromStartAndAngle(pathPoint[i],/* scopeData[scopeDataPosition] **/ 400.f, lineAngleRight);
+        auto lineRight = juce::Line<float>::fromStartAndAngle(pathPoint[i], scopeData[scopeDataPosition] * 400.f, lineAngleRight);
         if (colourPosition % 2 == 0)
             g.setColour(juce::Colour (0, 128, colourPosition / 2));
         

@@ -12,6 +12,8 @@
 
 #include <JuceHeader.h>
 
+#include "FFTCircleData.h"
+
 //==============================================================================
 /*
 */
@@ -23,7 +25,11 @@ public:
 
     void paint (juce::Graphics&) override;
     void resized() override;
+    
+    FFTCircleData fftCircleData;
 
 private:
+    
+    float scopeData[FFTCircleData::scopeSize];
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (FFTCircleComponent)
 };

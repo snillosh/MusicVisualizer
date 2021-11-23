@@ -8,6 +8,7 @@
 
 #include"ParticleComponent.h"
 #include "FFTCircleComponent.h"
+#include"FFTCircleData.h"
 
 
 //==============================================================================
@@ -81,12 +82,6 @@ private:
     juce::dsp::FFT forwardFFT;
     juce::dsp::WindowingFunction<float> window;
     
-    float fifo[fftSize];
-    float fftData[2 * fftSize];
-    int fifoIndex = 0;
-    bool nextFFTBlockReady = false;
-    float scopeData [scopeSize];
-    
     Point<float> centrePoint;
     OwnedArray<ParticleComponent> particlesTopLeft;
     OwnedArray<ParticleComponent> particlesTopRight;
@@ -94,6 +89,12 @@ private:
     OwnedArray<ParticleComponent> particlesBottomRight;
     
     FFTCircleComponent fftCircleComponent;
+    
+    FFTCircleData* circleDataPtr = &fftCircleComponent.fftCircleData;
+    
+    AudioBuffer<float> fftAudioBuffer;
+    
+    
 
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (MainComponent)
