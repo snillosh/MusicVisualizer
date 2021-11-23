@@ -12,11 +12,13 @@
 #include "ParticleComponent.h"
 
 //==============================================================================
-ParticleComponent::ParticleComponent()
+ParticleComponent::ParticleComponent(Point<float> pos, float xDir, float yDir) : position(pos),
+                                                                                 speed(Random::getSystemRandom().nextFloat() *  xDir,
+                                                                                 Random::getSystemRandom().nextFloat() * yDir),
+                                                                                 colour(Colours::white)
 {
-    // In your constructor, you should add any child components, and
-    // initialise any special settings that your component needs.
-
+    setSize(7, 7);
+    step();
 }
 
 ParticleComponent::~ParticleComponent()
@@ -25,27 +27,21 @@ ParticleComponent::~ParticleComponent()
 
 void ParticleComponent::paint (juce::Graphics& g)
 {
-    /* This demo code just fills the component's background and
-       draws some placeholder text to get you started.
-
-       You should replace everything in this method with your own
-       drawing code..
-    */
-
-    g.fillAll (getLookAndFeel().findColour (juce::ResizableWindow::backgroundColourId));   // clear the background
-
-    g.setColour (juce::Colours::grey);
-    g.drawRect (getLocalBounds(), 1);   // draw an outline around the component
-
     g.setColour (juce::Colours::white);
-    g.setFont (14.0f);
-    g.drawText ("ParticleComponent", getLocalBounds(),
-                juce::Justification::centred, true);   // draw some placeholder text
+    g.fillEllipse (2.0f, 2.0f, (float) getWidth() - 4.0f, (float) getHeight() - 4.0f);
+
+    g.setColour (Colours::darkgrey);
+    g.drawEllipse (2.0f, 2.0f, (float) getWidth() - 4.0f, (float) getHeight() - 4.0f, 1.0f);
 }
 
-void ParticleComponent::resized()
+bool ParticleComponent::step()
 {
-    // This method is where you should set the bounds of any child
-    // components that your component contains..
-
+    position += speed;
+    
+    setCentrePosition((int) position.x, (int) position.y);
+    
+    if (auto* parent = getParentComponent())
+        return isPositiveAndBelow(position.x, (float) parent->getWidth()) && position.y < (float) parent->getHeight();
+    
+    return position.y < 400.f && position.x >= -10.f;
 }

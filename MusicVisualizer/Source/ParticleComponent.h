@@ -18,11 +18,16 @@
 class ParticleComponent  : public juce::Component
 {
 public:
-    ParticleComponent();
+    ParticleComponent(Point<float> pos, float xDir, float yDir);
     ~ParticleComponent() override;
 
     void paint (juce::Graphics&) override;
-    void resized() override;
+    
+    bool step();
+    
+    Point<float> position, speed;
+    Colour colour;
+    float xDir = 0, yDir = 0;
 
 private:
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (ParticleComponent)

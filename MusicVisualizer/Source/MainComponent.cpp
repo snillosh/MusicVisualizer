@@ -15,6 +15,9 @@ MainComponent::MainComponent() : forwardFFT(fftOrder),
     setAudioChannels(0, 2);
     Timer::startTimerHz(60);
     
+    centrePoint.setX(getWidth() / 2);
+    centrePoint.setY(getHeight() / 2);
+    
     openButton.onClick = [this] { openButtonClicked(); };
     addAndMakeVisible(&openButton);
     
@@ -89,7 +92,38 @@ void MainComponent::resized()
 
 void MainComponent::timerCallback()
 {
+    // Go through each particle and update their position
+    for (int i = particlesTopLeft.size(); --i >= 0;)
+    {
+        if (! particlesTopLeft.getUnchecked(i)->step())
+            particlesTopLeft.remove(i);
+    }
+    for (int i = particlesTopRight.size(); --i >= 0;)
+    {
+        if (! particlesTopRight.getUnchecked(i)->step())
+            particlesTopRight.remove(i);
+    }
+    for (int i = particlesBottomLeft.size(); --i >= 0;)
+    {
+        if (! particlesBottomLeft.getUnchecked(i)->step())
+            particlesBottomLeft.remove(i);
+    }
+    for (int i = particlesBottomRight.size(); --i >= 0;)
+    {
+        if (! particlesBottomRight.getUnchecked(i)->step())
+            particlesBottomRight.remove(i);
+    }
     
+    // Randomly generate new particles
+    if (Random::getSystemRandom().nextInt(100) < 10)
+        addAndMakeVisible(particlesTopLeft.add(new ParticleComponent (centrePoint, 4.0f, -6.0f)));
+        
+    if (Random::getSystemRandom().nextInt(100) < 10)
+        addAndMakeVisible(particlesTopRight.add(new ParticleComponent (centrePoint, -4.0f, -6.0f)));
+    if (Random::getSystemRandom().nextInt(100) < 10)
+        addAndMakeVisible(particlesBottomLeft.add(new ParticleComponent (centrePoint, -4.0f, 6.0f)));
+    if (Random::getSystemRandom().nextInt(100) < 10)
+        addAndMakeVisible(particlesBottomRight.add(new ParticleComponent (centrePoint, 4.0f, 6.0f)));
 }
 
 void MainComponent::changeListenerCallback (juce::ChangeBroadcaster* source)
