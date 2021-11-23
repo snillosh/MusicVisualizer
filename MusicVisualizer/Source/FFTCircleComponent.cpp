@@ -26,6 +26,16 @@ FFTCircleComponent::~FFTCircleComponent()
 
 void FFTCircleComponent::paint (juce::Graphics& g)
 {
+    //auto fillType = FillType();
+    auto colGrad = ColourGradient(Colours::white, getWidth() / 2 , getHeight() / 2 ,Colours::red, getWidth() / 2, getHeight() / 2, true);
+    //colGrad.addColour(0.5, Colours::red);
+    //colGrad.addColour(0.2, Colours::white);
+    g.setGradientFill(colGrad);
+    //fillType.setColour(Colours::white);
+    //fillType.setGradient(colGrad);
+    //g.setFillType(fillType);
+    g.setFillType(colGrad);
+    
     for (int i = 0; i < FFTCircleData::scopeSize; i++)
     {
         scopeData[i] = fftCircleData.getScopeDataAtIndex(i);
@@ -41,6 +51,9 @@ void FFTCircleComponent::paint (juce::Graphics& g)
     g.drawImageAt(logoScaled, (getWidth() / 2) - 200, (getHeight() / 2) - 200);
     
     juce::Path centreCirclePath;
+    juce::Path FFTConnectingLineLeft;
+    juce::Path FFTConnectingLineRight;
+    
     centreCirclePath.addEllipse((getWidth() / 2) - 163, (getHeight() / 2) - 163, 326, 326);
     
     g.setColour(juce::Colours::orange);
@@ -54,16 +67,30 @@ void FFTCircleComponent::paint (juce::Graphics& g)
     float lineAngleLeft = 0.f;
     float lineAngleRight = 2.f * M_PI;
     
+    Line<float> previousLineLeft;
+    Line<float> previousLineRight;
+    
     for (int i = 0; i < static_cast<int>(centreCirclePath.getLength() / 2); i++)
     {
         auto lineLeft = juce::Line<float>::fromStartAndAngle(pathPoint[i], scopeData[i] * 400.f, lineAngleLeft);
         if (i % 2 == 0)
             g.setColour(juce::Colour (0, 128, i / 2));
         
-        g.drawLine(lineLeft);
+        //g.drawLine(lineLeft);
+        
+            if (i == 0)
+                FFTConnectingLineLeft.startNewSubPath(lineLeft.getEnd());
+            else
+            {
+                FFTConnectingLineLeft.lineTo(previousLineLeft.getEnd());
+            }
+        previousLineLeft = lineLeft;
+        
         
         lineAngleLeft += (2.f * M_PI) / static_cast<float>(centreCirclePath.getLength());
     }
+    FFTConnectingLineLeft.closeSubPath();
+    
     
     int scopeDataPosition = 0;
     int colourPosition = 0;
@@ -74,13 +101,28 @@ void FFTCircleComponent::paint (juce::Graphics& g)
         if (colourPosition % 2 == 0)
             g.setColour(juce::Colour (0, 128, colourPosition / 2));
         
-        g.drawLine(lineRight);
+        //g.drawLine(lineRight);
+        
+            if (i == static_cast<int>(centreCirclePath.getLength()))
+                FFTConnectingLineRight.startNewSubPath(lineRight.getEnd());
+            else
+            {
+                FFTConnectingLineRight.lineTo(previousLineRight.getEnd());
+            }
+        
+        previousLineRight = lineRight;
         
         lineAngleRight -= (2.f * M_PI) / static_cast<float>(centreCirclePath.getLength());
         
         scopeDataPosition++;
         colourPosition++;
     }
+    FFTConnectingLineRight.closeSubPath();
+    
+    g.setColour(juce::Colours::white);
+    g.strokePath(FFTConnectingLineLeft, juce::PathStrokeType (1.f));
+    //g.strokePath(FFTConnectingLineRight, juce::PathStrokeType (1.f));
+    g.fillPath(FFTConnectingLineRight);
 }
 
 void FFTCircleComponent::resized()

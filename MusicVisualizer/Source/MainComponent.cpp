@@ -13,7 +13,7 @@ MainComponent::MainComponent() : forwardFFT(fftOrder),
     // you add any child components.
     setSize (1280, 1280);
     setAudioChannels(0, 2);
-    Timer::startTimerHz(30);
+    Timer::startTimerHz(60);
     
     centrePoint.setX(getWidth() / 2);
     centrePoint.setY(getHeight() / 2);
