@@ -39,8 +39,6 @@ void FFTCircleComponent::paint (juce::Graphics& g)
     juce::Path FFTConnectingLineLeft;
     juce::Path FFTConnectingLineRight;
     
-    juce::Path lowFreqPath;
-    
     centreCirclePath.addEllipse((getWidth() / 2) - 163, (getHeight() / 2) - 163, 326, 326);
     
     g.setColour(juce::Colours::orange);
@@ -68,16 +66,10 @@ void FFTCircleComponent::paint (juce::Graphics& g)
         if (i == 0)
         {
             FFTConnectingLineLeft.startNewSubPath(lineLeft.getEnd());
-            lowFreqPath.startNewSubPath( lineLeft.getEnd());
         }
         else
         {
             FFTConnectingLineLeft.lineTo(previousLineLeft.getEnd());
-        }
-        
-        if (i < 40)
-        {
-            lowFreqPath.lineTo( previousLineLeft.getEnd());
         }
         
         previousLineLeft = lineLeft;
@@ -129,8 +121,6 @@ void FFTCircleComponent::paint (juce::Graphics& g)
     
     //g.strokePath(FFTConnectingLineLeft, juce::PathStrokeType (1.f));
     //g.strokePath(FFTConnectingLineRight, juce::PathStrokeType (1.f));
-    g.setColour(Colours::green);
-    g.strokePath(lowFreqPath, juce::PathStrokeType (5.f));
     g.setColour(juce::Colours::darkred);
     g.fillPath(FFTConnectingLineLeft);
     g.fillPath(FFTConnectingLineRight);

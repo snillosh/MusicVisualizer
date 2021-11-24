@@ -9,3 +9,28 @@
 */
 
 #include "FreqMagnitudeDetector.h"
+
+FreqMagnitudeDetector::FreqMagnitudeDetector()
+{
+    
+}
+
+FreqMagnitudeDetector::~FreqMagnitudeDetector()
+{
+    
+}
+
+bool FreqMagnitudeDetector::detectBeat(float inputScopeData)
+{
+    if (inputScopeData >= threshold)
+    {
+        //DBG("Beat");
+        return true;
+    }
+        
+    else
+    {
+        //DBG("No Beat");
+        return false;
+    }
+}

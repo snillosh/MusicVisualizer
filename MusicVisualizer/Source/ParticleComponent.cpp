@@ -36,6 +36,11 @@ void ParticleComponent::paint (juce::Graphics& g)
 
 bool ParticleComponent::step()
 {
+    if (beatDetected == true)
+    {
+        speed *= 1.06f;
+    }
+    
     position += speed;
     
     setCentrePosition((int) position.x, (int) position.y);

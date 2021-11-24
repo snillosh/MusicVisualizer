@@ -28,6 +28,7 @@ public:
     Point<float> position, speed;
     Colour colour;
     float xDir = 0, yDir = 0;
+    bool beatDetected = false;
 
 private:
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (ParticleComponent)

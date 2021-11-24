@@ -10,6 +10,7 @@
 #include "FFTCircleComponent.h"
 #include"FFTCircleData.h"
 #include"LogoComponent.h"
+#include"FreqMagnitudeDetector.h"
 
 
 //==============================================================================
@@ -90,11 +91,13 @@ private:
     OwnedArray<ParticleComponent> particlesBottomRight;
     
     FFTCircleComponent fftCircleComponent;
+    FFTCircleComponent test;
     LogoComponent logoComponent;
     
-    FFTCircleData* circleDataPtr = &fftCircleComponent.fftCircleData;
+    FreqMagnitudeDetector beatDetector;
     
-    AudioBuffer<float> fftAudioBuffer;
+    FFTCircleData* circleDataPtr = &fftCircleComponent.fftCircleData;
+    bool beatDetected = false;
     
     
 

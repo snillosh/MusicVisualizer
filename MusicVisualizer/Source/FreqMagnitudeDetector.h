@@ -9,3 +9,24 @@
 */
 
 #pragma once
+
+#include <JuceHeader.h>
+
+
+
+class FreqMagnitudeDetector
+{
+public:
+    FreqMagnitudeDetector();
+    ~FreqMagnitudeDetector();
+    
+    bool detectBeat (float inputScopeData);
+    
+    bool magThresholdReached = false;
+    
+    int scopeSize = 20;
+    
+private:
+    float lowScopeData[20];
+    float threshold = 0.7f;
+};

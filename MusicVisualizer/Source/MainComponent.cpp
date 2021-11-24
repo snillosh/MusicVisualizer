@@ -52,6 +52,7 @@ MainComponent::MainComponent() : forwardFFT(fftOrder),
 MainComponent::~MainComponent()
 {
     // This shuts down the audio device and clears the audio source.
+    circleDataPtr = nullptr;
     stopTimer();
     shutdownAudio();
 }
@@ -114,33 +115,43 @@ void MainComponent::timerCallback()
     {
         circleDataPtr->drawNextFrameOfSpectrum();
         circleDataPtr->nextFFTBlockReady = false;
+        
+        for (int i = 0; i < beatDetector.scopeSize; i++)
+        {
+            beatDetected = beatDetector.detectBeat(circleDataPtr->getScopeDataAtIndex(i));
+            DBG("Index: " << i << " .Value: " << circleDataPtr->getScopeDataAtIndex(i));
+        }
         fftCircleComponent.repaint();
     }
     
     // Go through each particle and update their position
     for (int i = particlesTopLeft.size(); --i >= 0;)
     {
+        particlesTopLeft.operator[](i)->beatDetected = beatDetected;
         if (! particlesTopLeft.getUnchecked(i)->step())
             particlesTopLeft.remove(i);
     }
     for (int i = particlesTopRight.size(); --i >= 0;)
     {
+        particlesTopRight.operator[](i)->beatDetected = beatDetected;
         if (! particlesTopRight.getUnchecked(i)->step())
             particlesTopRight.remove(i);
     }
     for (int i = particlesBottomLeft.size(); --i >= 0;)
     {
+        particlesBottomLeft.operator[](i)->beatDetected = beatDetected;
         if (! particlesBottomLeft.getUnchecked(i)->step())
             particlesBottomLeft.remove(i);
     }
     for (int i = particlesBottomRight.size(); --i >= 0;)
     {
+        particlesBottomRight.operator[](i)->beatDetected = beatDetected;
         if (! particlesBottomRight.getUnchecked(i)->step())
             particlesBottomRight.remove(i);
     }
     
     // Randomly generate new particles
-    if (Random::getSystemRandom().nextInt(100) < 10){
+    if (Random::getSystemRandom().nextInt(100) < 20){
         addAndMakeVisible(particlesTopLeft.add(new ParticleComponent (centrePoint, 4.0f, -6.0f)));
         
         for (int i = 0; i < particlesTopLeft.size(); i++)
@@ -148,7 +159,7 @@ void MainComponent::timerCallback()
             particlesTopLeft.operator[](i)->toBehind(&fftCircleComponent);
         }
     }
-    if (Random::getSystemRandom().nextInt(100) < 10)
+    if (Random::getSystemRandom().nextInt(100) < 20)
     {
         addAndMakeVisible(particlesTopRight.add(new ParticleComponent (centrePoint, -4.0f, -6.0f)));
         for (int i = 0; i < particlesTopRight.size(); i++)
@@ -156,7 +167,7 @@ void MainComponent::timerCallback()
             particlesTopRight.operator[](i)->toBehind(&fftCircleComponent);
         }
     }
-    if (Random::getSystemRandom().nextInt(100) < 10)
+    if (Random::getSystemRandom().nextInt(100) < 20)
     {
         addAndMakeVisible(particlesBottomLeft.add(new ParticleComponent (centrePoint, -4.0f, 6.0f)));
         for (int i = 0; i < particlesBottomLeft.size(); i++)
@@ -164,7 +175,7 @@ void MainComponent::timerCallback()
             particlesBottomLeft.operator[](i)->toBehind(&fftCircleComponent);
         }
     }
-    if (Random::getSystemRandom().nextInt(100) < 10)
+    if (Random::getSystemRandom().nextInt(100) < 20)
     {
         addAndMakeVisible(particlesBottomRight.add(new ParticleComponent (centrePoint, 4.0f, 6.0f)));
         for (int i = 0; i < particlesBottomRight.size(); i++)
