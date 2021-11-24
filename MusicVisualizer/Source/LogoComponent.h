@@ -1,8 +1,8 @@
 /*
   ==============================================================================
 
-    FFTCircleComponent.h
-    Created: 23 Nov 2021 2:29:14pm
+    LogoComponent.h
+    Created: 24 Nov 2021 12:01:53pm
     Author:  Bevan Salter
 
   ==============================================================================
@@ -12,25 +12,18 @@
 
 #include <JuceHeader.h>
 
-#include "FFTCircleData.h"
-
 //==============================================================================
 /*
 */
-class FFTCircleComponent  : public juce::Component
+class LogoComponent  : public juce::Component
 {
 public:
-    FFTCircleComponent();
-    ~FFTCircleComponent() override;
+    LogoComponent();
+    ~LogoComponent() override;
 
     void paint (juce::Graphics&) override;
     void resized() override;
-    
-    FFTCircleData fftCircleData;
 
 private:
-    
-    float scopeData[FFTCircleData::scopeSize];
-    
-    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (FFTCircleComponent)
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (LogoComponent)
 };

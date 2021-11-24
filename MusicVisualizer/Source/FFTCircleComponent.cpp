@@ -26,16 +26,6 @@ FFTCircleComponent::~FFTCircleComponent()
 
 void FFTCircleComponent::paint (juce::Graphics& g)
 {
-    //auto fillType = FillType();
-    auto colGrad = ColourGradient(Colours::white, getWidth() / 2 , getHeight() / 2 ,Colours::red, getWidth() / 2, getHeight() / 2, true);
-    //colGrad.addColour(0.5, Colours::red);
-    //colGrad.addColour(0.2, Colours::white);
-    g.setGradientFill(colGrad);
-    //fillType.setColour(Colours::white);
-    //fillType.setGradient(colGrad);
-    //g.setFillType(fillType);
-    g.setFillType(colGrad);
-    
     for (int i = 0; i < FFTCircleData::scopeSize; i++)
     {
         scopeData[i] = fftCircleData.getScopeDataAtIndex(i);
@@ -44,11 +34,6 @@ void FFTCircleComponent::paint (juce::Graphics& g)
             scopeData[i] = 0;
         }
     }
-    
-    auto logo = juce::ImageCache::getFromMemory(BinaryData::LOGOTRANS_png, BinaryData::LOGOTRANS_pngSize);
-    auto logoScaled = logo.rescaled(400, 400);
-    
-    g.drawImageAt(logoScaled, (getWidth() / 2) - 200, (getHeight() / 2) - 200);
     
     juce::Path centreCirclePath;
     juce::Path FFTConnectingLineLeft;
@@ -119,9 +104,21 @@ void FFTCircleComponent::paint (juce::Graphics& g)
     }
     FFTConnectingLineRight.closeSubPath();
     
-    g.setColour(juce::Colours::white);
-    g.strokePath(FFTConnectingLineLeft, juce::PathStrokeType (1.f));
+    //auto fillType = FillType();
+    //auto colGrad = ColourGradient(Colours::white, getWidth() / 2 , getHeight() / 2 ,Colours::red, getWidth() / 2, getHeight() / 2, true);
+    //colGrad.addColour(0.5, Colours::red);
+    //colGrad.addColour(0.2, Colours::white);
+    //g.setGradientFill(colGrad);
+    //fillType.setColour(Colours::red);
+    //fillType.setGradient(colGrad);
+    //g.setFillType(fillType);
+    //g.setFillType(colGrad);
+    
+    
+    g.setColour(juce::Colours::darkred);
+    //g.strokePath(FFTConnectingLineLeft, juce::PathStrokeType (1.f));
     //g.strokePath(FFTConnectingLineRight, juce::PathStrokeType (1.f));
+    g.fillPath(FFTConnectingLineLeft);
     g.fillPath(FFTConnectingLineRight);
 }
 

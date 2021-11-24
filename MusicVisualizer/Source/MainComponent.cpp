@@ -31,6 +31,9 @@ MainComponent::MainComponent() : forwardFFT(fftOrder),
     transportSource.addChangeListener(this);
     
     addAndMakeVisible(fftCircleComponent);
+    
+    addAndMakeVisible(logoComponent);
+    logoComponent.toFront(&fftCircleComponent);
 
     // Some platforms require permissions to open input channels so request that here
     if (juce::RuntimePermissions::isRequired (juce::RuntimePermissions::recordAudio)
@@ -102,6 +105,7 @@ void MainComponent::resized()
     stopButton.setBounds(10, 90, getWidth() - 20, 30);
     
     fftCircleComponent.setBounds(0, 120, getWidth(), getHeight() - 120);
+    logoComponent.setBounds((getWidth() / 2) - 200, (getHeight() / 2 ) - 140, 400, 400);
 }
 
 void MainComponent::timerCallback()
@@ -136,7 +140,7 @@ void MainComponent::timerCallback()
     }
     
     // Randomly generate new particles
-    if (Random::getSystemRandom().nextInt(100) < 4){
+    if (Random::getSystemRandom().nextInt(100) < 10){
         addAndMakeVisible(particlesTopLeft.add(new ParticleComponent (centrePoint, 4.0f, -6.0f)));
         
         for (int i = 0; i < particlesTopLeft.size(); i++)
@@ -144,7 +148,7 @@ void MainComponent::timerCallback()
             particlesTopLeft.operator[](i)->toBehind(&fftCircleComponent);
         }
     }
-    if (Random::getSystemRandom().nextInt(100) < 4)
+    if (Random::getSystemRandom().nextInt(100) < 10)
     {
         addAndMakeVisible(particlesTopRight.add(new ParticleComponent (centrePoint, -4.0f, -6.0f)));
         for (int i = 0; i < particlesTopRight.size(); i++)
@@ -152,7 +156,7 @@ void MainComponent::timerCallback()
             particlesTopRight.operator[](i)->toBehind(&fftCircleComponent);
         }
     }
-    if (Random::getSystemRandom().nextInt(100) < 4)
+    if (Random::getSystemRandom().nextInt(100) < 10)
     {
         addAndMakeVisible(particlesBottomLeft.add(new ParticleComponent (centrePoint, -4.0f, 6.0f)));
         for (int i = 0; i < particlesBottomLeft.size(); i++)
@@ -160,7 +164,7 @@ void MainComponent::timerCallback()
             particlesBottomLeft.operator[](i)->toBehind(&fftCircleComponent);
         }
     }
-    if (Random::getSystemRandom().nextInt(100) < 4)
+    if (Random::getSystemRandom().nextInt(100) < 10)
     {
         addAndMakeVisible(particlesBottomRight.add(new ParticleComponent (centrePoint, 4.0f, 6.0f)));
         for (int i = 0; i < particlesBottomRight.size(); i++)

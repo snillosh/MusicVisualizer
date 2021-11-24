@@ -9,6 +9,7 @@
 #include"ParticleComponent.h"
 #include "FFTCircleComponent.h"
 #include"FFTCircleData.h"
+#include"LogoComponent.h"
 
 
 //==============================================================================
@@ -89,6 +90,7 @@ private:
     OwnedArray<ParticleComponent> particlesBottomRight;
     
     FFTCircleComponent fftCircleComponent;
+    LogoComponent logoComponent;
     
     FFTCircleData* circleDataPtr = &fftCircleComponent.fftCircleData;
     

@@ -18,6 +18,9 @@
       <FILE id="c1EtZd" name="BS AU-logos.zip" compile="0" resource="1" file="../../../Waveshape Circle Test 2/Waveshape Circle Test 2/Images/BS AU-logos.zip"/>
     </GROUP>
     <GROUP id="{D7EEFA26-DB59-700E-B873-204737FF5932}" name="Source">
+      <FILE id="AYwMDh" name="LogoComponent.cpp" compile="1" resource="0"
+            file="Source/LogoComponent.cpp"/>
+      <FILE id="hHtc50" name="LogoComponent.h" compile="0" resource="0" file="Source/LogoComponent.h"/>
       <FILE id="Bc19ly" name="ParticleComponent.cpp" compile="1" resource="0"
             file="Source/ParticleComponent.cpp"/>
       <FILE id="qclufJ" name="ParticleComponent.h" compile="0" resource="0"
