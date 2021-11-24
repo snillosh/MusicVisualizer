@@ -18,24 +18,34 @@
       <FILE id="c1EtZd" name="BS AU-logos.zip" compile="0" resource="1" file="../../../Waveshape Circle Test 2/Waveshape Circle Test 2/Images/BS AU-logos.zip"/>
     </GROUP>
     <GROUP id="{D7EEFA26-DB59-700E-B873-204737FF5932}" name="Source">
-      <FILE id="AYwMDh" name="LogoComponent.cpp" compile="1" resource="0"
-            file="Source/LogoComponent.cpp"/>
-      <FILE id="hHtc50" name="LogoComponent.h" compile="0" resource="0" file="Source/LogoComponent.h"/>
-      <FILE id="Bc19ly" name="ParticleComponent.cpp" compile="1" resource="0"
-            file="Source/ParticleComponent.cpp"/>
-      <FILE id="qclufJ" name="ParticleComponent.h" compile="0" resource="0"
-            file="Source/ParticleComponent.h"/>
-      <FILE id="Ak1VVv" name="FFTCircleComponent.cpp" compile="1" resource="0"
-            file="Source/FFTCircleComponent.cpp"/>
-      <FILE id="K6lfkY" name="FFTCircleComponent.h" compile="0" resource="0"
-            file="Source/FFTCircleComponent.h"/>
-      <FILE id="zJGPFe" name="FFTCircleData.cpp" compile="1" resource="0"
-            file="Source/FFTCircleData.cpp"/>
-      <FILE id="FwXVvb" name="FFTCircleData.h" compile="0" resource="0" file="Source/FFTCircleData.h"/>
-      <FILE id="ZJ1NEW" name="Main.cpp" compile="1" resource="0" file="Source/Main.cpp"/>
-      <FILE id="B1aVgZ" name="MainComponent.h" compile="0" resource="0" file="Source/MainComponent.h"/>
-      <FILE id="giCKtP" name="MainComponent.cpp" compile="1" resource="0"
-            file="Source/MainComponent.cpp"/>
+      <GROUP id="{97E00950-E2A7-2163-F12C-826C4CAFCD0B}" name="Core">
+        <FILE id="ZJ1NEW" name="Main.cpp" compile="1" resource="0" file="Source/Main.cpp"/>
+        <FILE id="B1aVgZ" name="MainComponent.h" compile="0" resource="0" file="Source/MainComponent.h"/>
+        <FILE id="giCKtP" name="MainComponent.cpp" compile="1" resource="0"
+              file="Source/MainComponent.cpp"/>
+      </GROUP>
+      <GROUP id="{F362A75F-F317-029B-96AF-50C9084FD3B9}" name="AudioData">
+        <FILE id="zJGPFe" name="FFTCircleData.cpp" compile="1" resource="0"
+              file="Source/FFTCircleData.cpp"/>
+        <FILE id="FwXVvb" name="FFTCircleData.h" compile="0" resource="0" file="Source/FFTCircleData.h"/>
+        <FILE id="jFpXQa" name="FreqMagnitudeDetector.cpp" compile="1" resource="0"
+              file="Source/FreqMagnitudeDetector.cpp"/>
+        <FILE id="JuyYvo" name="FreqMagnitudeDetector.h" compile="0" resource="0"
+              file="Source/FreqMagnitudeDetector.h"/>
+      </GROUP>
+      <GROUP id="{90079A79-ECB8-4C71-9D24-CA8B07123A33}" name="GUI">
+        <FILE id="Ak1VVv" name="FFTCircleComponent.cpp" compile="1" resource="0"
+              file="Source/FFTCircleComponent.cpp"/>
+        <FILE id="K6lfkY" name="FFTCircleComponent.h" compile="0" resource="0"
+              file="Source/FFTCircleComponent.h"/>
+        <FILE id="Bc19ly" name="ParticleComponent.cpp" compile="1" resource="0"
+              file="Source/ParticleComponent.cpp"/>
+        <FILE id="qclufJ" name="ParticleComponent.h" compile="0" resource="0"
+              file="Source/ParticleComponent.h"/>
+        <FILE id="AYwMDh" name="LogoComponent.cpp" compile="1" resource="0"
+              file="Source/LogoComponent.cpp"/>
+        <FILE id="hHtc50" name="LogoComponent.h" compile="0" resource="0" file="Source/LogoComponent.h"/>
+      </GROUP>
     </GROUP>
   </MAINGROUP>
   <JUCEOPTIONS JUCE_STRICT_REFCOUNTEDPOINTER="1"/>
