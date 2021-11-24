@@ -26,9 +26,18 @@ LogoComponent::~LogoComponent()
 void LogoComponent::paint (juce::Graphics& g)
 {
     auto logo = juce::ImageCache::getFromMemory(BinaryData::LOGOTRANS_png, BinaryData::LOGOTRANS_pngSize);
-    auto logoScaled = logo.rescaled(400, 400);
     
-    g.drawImageAt(logoScaled, 0, 0);
+    if (beatDetected == true)
+    {
+        auto logoScaled = logo.rescaled(400 * 1.5, 400 * 1.5);
+        g.drawImageAt(logoScaled, 0, 0);
+    }
+    else
+    {
+        auto logoScaled = logo.rescaled(400 , 400);
+        g.drawImageAt(logoScaled, 0, 0);
+    }
+    
 }
 
 void LogoComponent::resized()

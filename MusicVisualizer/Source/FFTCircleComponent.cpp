@@ -124,6 +124,8 @@ void FFTCircleComponent::paint (juce::Graphics& g)
     g.setColour(juce::Colours::darkred);
     g.fillPath(FFTConnectingLineLeft);
     g.fillPath(FFTConnectingLineRight);
+    g.setColour(Colours::white);
+    drawFrame(g);
 }
 
 void FFTCircleComponent::resized()
@@ -132,4 +134,16 @@ void FFTCircleComponent::resized()
     // components that your component contains..
     
     
+}
+void FFTCircleComponent::drawFrame (juce::Graphics& g)
+{
+    for (int i = 1; i < 50; ++i)
+    {
+        auto width  = getLocalBounds().getWidth();
+        auto height = getLocalBounds().getHeight();
+        g.drawLine ({ (float) juce::jmap (i - 1, 0, FFTCircleData::scopeSize - 1, 0, width),
+                                juce::jmap (scopeData[i - 1], 0.0f, 1.0f, (float) height, 0.0f),
+                        (float) juce::jmap (i,     0, FFTCircleData::scopeSize - 1, 0, width),
+                                juce::jmap (scopeData[i],     0.0f, 1.0f, (float) height, 0.0f) });
+    }
 }

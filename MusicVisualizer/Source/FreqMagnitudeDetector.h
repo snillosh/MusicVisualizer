@@ -28,5 +28,13 @@ public:
     
 private:
     float lowScopeData[20];
-    float threshold = 0.7f;
+    float threshold = 0.6f;
+    float thresholdLeft = 0.f;
+    float threshholdRight = 0.f;
+    
+    float averageLeft = 0.f;
+    float averageRight = 0.f;
+    
+    float beatMinimumLeft = 0.f;
+    float beatMinimumRight = 0.f;
 };

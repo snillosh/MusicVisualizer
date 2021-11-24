@@ -38,10 +38,12 @@ bool ParticleComponent::step()
 {
     if (beatDetected == true)
     {
-        speed *= 1.06f;
+        position += speed * 4.0f;
     }
-    
-    position += speed;
+    else
+    {
+        position += speed;
+    }
     
     setCentrePosition((int) position.x, (int) position.y);
     

@@ -24,6 +24,11 @@ public:
     void paint (juce::Graphics&) override;
     void resized() override;
 
+    
+    bool beatDetected = false;
 private:
+    float scopeData;
+    
+    
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (LogoComponent)
 };

@@ -84,6 +84,8 @@ private:
     juce::dsp::FFT forwardFFT;
     juce::dsp::WindowingFunction<float> window;
     
+    float mainScopeData[FFTCircleData::scopeSize];
+    
     Point<float> centrePoint;
     OwnedArray<ParticleComponent> particlesTopLeft;
     OwnedArray<ParticleComponent> particlesTopRight;

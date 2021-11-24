@@ -26,6 +26,8 @@ public:
     void paint (juce::Graphics&) override;
     void resized() override;
     
+    void drawFrame (juce::Graphics& g);
+    
     FFTCircleData fftCircleData;
 
 private:
