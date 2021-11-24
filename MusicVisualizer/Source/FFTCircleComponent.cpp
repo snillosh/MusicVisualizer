@@ -77,6 +77,10 @@ void FFTCircleComponent::paint (juce::Graphics& g)
         
         lineAngleLeft += (2.f * M_PI) / static_cast<float>(centreCirclePath.getLength());
     }
+    for (int i = static_cast<int>(centreCirclePath.getLength()) / 2; i > 0; i--)
+    {
+        FFTConnectingLineLeft.lineTo(pathPoint[i]);
+    }
     FFTConnectingLineLeft.closeSubPath();
     
     
@@ -104,6 +108,10 @@ void FFTCircleComponent::paint (juce::Graphics& g)
         
         scopeDataPosition++;
         colourPosition++;
+    }
+    for (int i = static_cast<int>(centreCirclePath.getLength()) / 2; i < static_cast<int>(centreCirclePath.getLength()); i++)
+    {
+        FFTConnectingLineRight.lineTo(pathPoint[i]);
     }
     FFTConnectingLineRight.closeSubPath();
     
@@ -137,7 +145,7 @@ void FFTCircleComponent::resized()
 }
 void FFTCircleComponent::drawFrame (juce::Graphics& g)
 {
-    for (int i = 1; i < 50; ++i)
+    for (int i = 1; i < 20; ++i)
     {
         auto width  = getLocalBounds().getWidth();
         auto height = getLocalBounds().getHeight();

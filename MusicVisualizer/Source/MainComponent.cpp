@@ -111,7 +111,7 @@ void MainComponent::resized()
     stopButton.setBounds(10, 90, getWidth() - 20, 30);
     
     fftCircleComponent.setBounds(0, 120, getWidth(), getHeight() - 120);
-    logoComponent.setBounds((getWidth() / 2) - 300, (getHeight() / 2 ) - 240, 600, 600);
+    logoComponent.setBounds((getWidth() / 2) - 200, (getHeight() / 2 ) - 140, 400, 400);
 }
 
 void MainComponent::timerCallback()

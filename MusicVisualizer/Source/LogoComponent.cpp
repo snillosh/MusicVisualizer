@@ -26,18 +26,19 @@ LogoComponent::~LogoComponent()
 void LogoComponent::paint (juce::Graphics& g)
 {
     auto logo = juce::ImageCache::getFromMemory(BinaryData::LOGOTRANS_png, BinaryData::LOGOTRANS_pngSize);
+    auto logoScaled = logo.rescaled(400 , 400);
+    g.drawImageAt(logoScaled, 0, 0);
     
-    if (beatDetected == true)
-    {
-        auto logoScaled = logo.rescaled(400 * 1.5, 400 * 1.5);
-        g.drawImageAt(logoScaled, 0, 0);
+    if (beatDetected == true) {
+        g.setColour(Colours::green);
+        g.fillEllipse((getWidth() / 2) - 25, (getHeight() / 2) - 25, 50, 50);
     }
     else
     {
-        auto logoScaled = logo.rescaled(400 , 400);
-        g.drawImageAt(logoScaled, 0, 0);
+        g.setColour(Colours::red);
+        g.fillEllipse((getWidth() / 2) - 25, (getHeight() / 2) - 25, 50, 50);
     }
-    
+        
 }
 
 void LogoComponent::resized()
