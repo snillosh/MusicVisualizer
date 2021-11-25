@@ -38,7 +38,7 @@ bool ParticleComponent::step()
 {
     if (beatDetected == true)
     {
-        position += speed * 4.0f;
+        position += speed * 3.0f;
     }
     else
     {

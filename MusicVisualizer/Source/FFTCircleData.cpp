@@ -60,7 +60,7 @@ void FFTCircleData::drawNextFrameOfSpectrum()
         }
 }
 
-void FFTCircleData::processAudioBlock(float inputSample)
+void FFTCircleData::processFFTSampleBySample(float inputSample)
 {
     pushNextSampleIntoFifo (inputSample);
 }

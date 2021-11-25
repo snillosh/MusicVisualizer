@@ -20,17 +20,45 @@ FreqMagnitudeDetector::~FreqMagnitudeDetector()
     
 }
 
-bool FreqMagnitudeDetector::detectBeat(float inputScopeData)
+bool FreqMagnitudeDetector::detectFreqsOverCertainLevel(float inputScopeData)
 {
     if (inputScopeData >= threshold)
-    {
-        //DBG("Beat");
         return true;
-    }
-        
     else
-    {
-        //DBG("No Beat");
         return false;
-    }
+    
+    
+//    if (levelDetectorArrayIndex == scopeSize)
+//    {
+//        levelDetectorArrayIndex = 0;
+//
+//        for (int i = 0; i < scopeSize; i++)
+//        {
+//            if (levelDetectorArray[i] >= maxLevelDetected)
+//            {
+//                maxLevelDetected = levelDetectorArray[i];
+//            }
+//        }
+//        if (maxLevelDetected >= threshold)
+//        {
+//            maxLevelDetected = 0;
+//            return true;
+//        }
+//        else
+//        {
+//            maxLevelDetected = 0;
+//            return false;
+//        }
+//    }
+//    else
+//    {
+//        levelDetectorArray[levelDetectorArrayIndex] = inputScopeData;
+//        levelDetectorArrayIndex++;
+//        return false;
+//    }
+}
+
+bool FreqMagnitudeDetector::detectBeat (float freq1, float freq2)
+{
+    return false;
 }

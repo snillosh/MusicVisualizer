@@ -70,6 +70,9 @@ private:
     void playButtonClicked();
     void stopButtonClicked();
     
+    void updateParticlePositions(OwnedArray<ParticleComponent>& particleArray);
+    void randomlyGenerateNewParticles(OwnedArray<ParticleComponent>& particleArray, int amountOfParticles, float xDir, float yDir, Point<float> newCentrePoint);
+    
     std::unique_ptr<juce::FileChooser> chooser;
     
     juce::AudioFormatManager formatManager;
@@ -84,8 +87,6 @@ private:
     juce::dsp::FFT forwardFFT;
     juce::dsp::WindowingFunction<float> window;
     
-    float mainScopeData[FFTCircleData::scopeSize];
-    
     Point<float> centrePoint;
     OwnedArray<ParticleComponent> particlesTopLeft;
     OwnedArray<ParticleComponent> particlesTopRight;
@@ -99,7 +100,7 @@ private:
     FreqMagnitudeDetector beatDetector;
     
     FFTCircleData* circleDataPtr = &fftCircleComponent.fftCircleData;
-    bool beatDetected = false;
+    bool levelDectectorValue = false;
     
     
 

@@ -1,13 +1,13 @@
 #include "MainComponent.h"
 
 //==============================================================================
-MainComponent::MainComponent() : forwardFFT(fftOrder),
-                                 window(fftSize,
-                                 juce::dsp::WindowingFunction<float>::blackman),
+MainComponent::MainComponent() :
                                  state(Stopped),
                                  openButton("Open"),
                                  playButton("Play"),
-                                 stopButton("Stop")
+                                 stopButton("Stop"),
+                                 forwardFFT(fftOrder),
+                                 window(fftSize, juce::dsp::WindowingFunction<float>::blackman)
 {
     // Make sure you set the size of the component after
     // you add any child components.
@@ -33,12 +33,6 @@ MainComponent::MainComponent() : forwardFFT(fftOrder),
     addAndMakeVisible(fftCircleComponent);
     
     addAndMakeVisible(logoComponent);
-    logoComponent.toFront(&fftCircleComponent);
-    
-    for (int i = 0; i < FFTCircleData::scopeSize; i++)
-    {
-        mainScopeData[i] = 0;
-    }
 
     // Some platforms require permissions to open input channels so request that here
     if (juce::RuntimePermissions::isRequired (juce::RuntimePermissions::recordAudio)
@@ -87,7 +81,7 @@ void MainComponent::getNextAudioBlock (const juce::AudioSourceChannelInfo& buffe
         
         for (auto i = 0; i < bufferToFill.numSamples; i++)
         {
-            circleDataPtr->processAudioBlock(channelData[i]);
+            circleDataPtr->processFFTSampleBySample(channelData[i]);
         }
     }
 }
@@ -121,109 +115,26 @@ void MainComponent::timerCallback()
         circleDataPtr->drawNextFrameOfSpectrum();
         circleDataPtr->nextFFTBlockReady = false;
         
-        for (int i = 0; i < beatDetector.scopeSize; i++)
+        for (int i = 0; i < beatDetector.getScopeSizeForLevelDetector(); i++)
         {
-            beatDetected = beatDetector.detectBeat(circleDataPtr->getScopeDataAtIndex(i));
-            //DBG("Index: " << i << " .Value: " << circleDataPtr->getScopeDataAtIndex(i));
-            
-            logoComponent.beatDetected = beatDetector.detectBeat(circleDataPtr->getScopeDataAtIndex(i));
+            levelDectectorValue = beatDetector.detectFreqsOverCertainLevel(circleDataPtr->scopeData[i]);
         }
         fftCircleComponent.repaint();
+        logoComponent.beatDetected = levelDectectorValue;
         logoComponent.repaint();
-        
-        for (int i = 0; i < FFTCircleData::scopeSize; i++)
-        {
-            mainScopeData[i] = circleDataPtr->getScopeDataAtIndex(i);
-        }
     }
     
-    // Go through each particle and update their position
-    for (int i = particlesTopLeft.size(); --i >= 0;)
-    {
-        particlesTopLeft.operator[](i)->beatDetected = beatDetected;
-        if (! particlesTopLeft.getUnchecked(i)->step())
-            particlesTopLeft.remove(i);
-    }
-    for (int i = particlesTopRight.size(); --i >= 0;)
-    {
-        particlesTopRight.operator[](i)->beatDetected = beatDetected;
-        if (! particlesTopRight.getUnchecked(i)->step())
-            particlesTopRight.remove(i);
-    }
-    for (int i = particlesBottomLeft.size(); --i >= 0;)
-    {
-        particlesBottomLeft.operator[](i)->beatDetected = beatDetected;
-        if (! particlesBottomLeft.getUnchecked(i)->step())
-            particlesBottomLeft.remove(i);
-    }
-    for (int i = particlesBottomRight.size(); --i >= 0;)
-    {
-        particlesBottomRight.operator[](i)->beatDetected = beatDetected;
-        if (! particlesBottomRight.getUnchecked(i)->step())
-            particlesBottomRight.remove(i);
-    }
+    updateParticlePositions(particlesTopLeft);
+    updateParticlePositions(particlesTopRight);
+    updateParticlePositions(particlesBottomLeft);
+    updateParticlePositions(particlesBottomRight);
     
-    
-    
-    // Randomly generate new particles
-    for (int i = 0; i < beatDetector.scopeSize; i++)
+    if  (levelDectectorValue == true)
     {
-        if  (beatDetector.detectBeat(circleDataPtr->getScopeDataAtIndex(i)) == true)
-        {
-            if (Random::getSystemRandom().nextInt(100) < 4){
-                    addAndMakeVisible(particlesTopLeft.add(new ParticleComponent (centrePoint, 2.0f, -3.0f)));
-            
-                    for (int i = 0; i < particlesTopLeft.size(); i++)
-                    {
-                        particlesTopLeft.operator[](i)->toBehind(&fftCircleComponent);
-                    }
-                }
-        }
-    }
-    
-    for (int i = 0; i < beatDetector.scopeSize; i++)
-    {
-        if  (beatDetector.detectBeat(circleDataPtr->getScopeDataAtIndex(i)) == true)
-        {
-        if (Random::getSystemRandom().nextInt(100) < 4)
-            {
-                addAndMakeVisible(particlesTopRight.add(new ParticleComponent (centrePoint, -2.0f, -3.0f)));
-                for (int i = 0; i < particlesTopRight.size(); i++)
-                {
-                    particlesTopRight.operator[](i)->toBehind(&fftCircleComponent);
-                }
-            }
-        }
-    }
-    
-    for (int i = 0; i < beatDetector.scopeSize; i++)
-    {
-        if  (beatDetector.detectBeat(circleDataPtr->getScopeDataAtIndex(i)) == true)
-        {
-            if (Random::getSystemRandom().nextInt(100) < 4)
-            {
-                addAndMakeVisible(particlesBottomLeft.add(new ParticleComponent (centrePoint, -2.0f, 3.0f)));
-                for (int i = 0; i < particlesBottomLeft.size(); i++)
-                {
-                    particlesBottomLeft.operator[](i)->toBehind(&fftCircleComponent);
-                }
-            }
-        }
-    }
-    
-    for (int i = 0; i < beatDetector.scopeSize; i++)
-    {
-        if  (beatDetector.detectBeat(circleDataPtr->getScopeDataAtIndex(i)) == true)
-        {
-        if (Random::getSystemRandom().nextInt(100) < 4)
-            {
-                addAndMakeVisible(particlesBottomRight.add(new ParticleComponent (centrePoint, 2.0f, 3.0f)));
-                for (int i = 0; i < particlesBottomRight.size(); i++)
-                {
-                    particlesBottomRight.operator[](i)->toBehind(&fftCircleComponent);
-                }
-            }
-        }
+        randomlyGenerateNewParticles(particlesTopLeft, 50, 2.0f, -3.0f, centrePoint);
+        randomlyGenerateNewParticles(particlesTopRight, 50, -2.0f, -3.0f, centrePoint);
+        randomlyGenerateNewParticles(particlesBottomLeft, 50, -2.0f, 3.0f, centrePoint);
+        randomlyGenerateNewParticles(particlesBottomRight, 50, 2.0f, 3.0f, centrePoint);
     }
 }
 
@@ -322,5 +233,28 @@ void MainComponent::changeState (TransportState newState)
                 transportSource.stop();
                 break;
         }
+    }
+}
+
+void MainComponent::updateParticlePositions(OwnedArray<ParticleComponent>& particleArray)
+{
+    for (int i = particleArray.size(); --i >= 0;)
+    {
+        particleArray.operator[](i)->beatDetected = levelDectectorValue;
+        if (! particleArray.getUnchecked(i)->step())
+            particleArray.remove(i);
+    }
+}
+
+void MainComponent::randomlyGenerateNewParticles(OwnedArray<ParticleComponent>& particleArray, int amountOfParticles, float xDir, float yDir, Point<float> newCentrePoint)
+{
+    if (Random::getSystemRandom().nextInt(100) < amountOfParticles)
+    {
+            addAndMakeVisible(particleArray.add(new ParticleComponent (newCentrePoint, xDir, yDir)));
+    
+            for (int i = 0; i < particleArray.size(); i++)
+            {
+                particleArray.operator[](i)->toBehind(&fftCircleComponent);
+            }
     }
 }

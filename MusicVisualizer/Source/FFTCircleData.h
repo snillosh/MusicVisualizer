@@ -20,7 +20,7 @@ public:
     
     void pushNextSampleIntoFifo (float sample) noexcept;
     void drawNextFrameOfSpectrum();
-    void processAudioBlock(float inputSample);
+    void processFFTSampleBySample(float inputSample);
     float getScopeDataAtIndex(int index);
     
     enum
