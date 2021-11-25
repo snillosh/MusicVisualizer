@@ -115,26 +115,18 @@ void FFTCircleComponent::paint (juce::Graphics& g)
     }
     FFTConnectingLineRight.closeSubPath();
     
-    //auto fillType = FillType();
-    //auto colGrad = ColourGradient(Colours::white, getWidth() / 2 , getHeight() / 2 ,Colours::red, getWidth() / 2, getHeight() / 2, true);
-    //colGrad.addColour(0.5, Colours::red);
-    //colGrad.addColour(0.2, Colours::white);
-    //g.setGradientFill(colGrad);
-    //fillType.setColour(Colours::red);
-    //fillType.setGradient(colGrad);
-    //g.setFillType(fillType);
-    //g.setFillType(colGrad);
+    if (gradiantCounter == 15) {
+        colgrad = (ColourGradient (getRandomColour(), getWidth() / 2, getHeight() / 2,
+                                           getRandomColour(), 0, 1300, true));
+        gradiantCounter = 0;
+    }
+    else
+        gradiantCounter++;
     
+    g.setGradientFill(colgrad);
     
-    
-    
-    //g.strokePath(FFTConnectingLineLeft, juce::PathStrokeType (1.f));
-    //g.strokePath(FFTConnectingLineRight, juce::PathStrokeType (1.f));
-    g.setColour(juce::Colours::darkred);
     g.fillPath(FFTConnectingLineLeft);
     g.fillPath(FFTConnectingLineRight);
-//    g.setColour(Colours::white);
-//    drawFrame(g);
 }
 
 void FFTCircleComponent::resized()
@@ -165,4 +157,13 @@ void FFTCircleComponent::drawFrame (juce::Graphics& g)
                         (float) juce::jmap (i,     0, FFTCircleData::scopeSize - 1, 0, width),
                                 juce::jmap (scopeData[i],     0.0f, 1.0f, (float) height, 0.0f) });
     }
+}
+
+Colour FFTCircleComponent::getRandomColour()
+{
+    auto& random = juce::Random::getSystemRandom();
+     
+    return juce::Colour ((juce::uint8) random.nextInt (256),
+                         (juce::uint8) random.nextInt (256),
+                         (juce::uint8) random.nextInt (256));
 }

@@ -28,10 +28,15 @@ public:
     
     void drawFrame (juce::Graphics& g);
     
+    static juce::Colour getRandomColour();
+    
     FFTCircleData fftCircleData;
+    
+    void run();
 
 private:
-    
+    ColourGradient colgrad;
+    int gradiantCounter = 0;
     float scopeData[FFTCircleData::scopeSize];
     
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (FFTCircleComponent)

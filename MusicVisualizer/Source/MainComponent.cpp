@@ -13,7 +13,7 @@ MainComponent::MainComponent() :
     // you add any child components.
     setSize (1280, 1280);
     setAudioChannels(0, 2);
-    Timer::startTimerHz(60);
+    Timer::startTimerHz(30);
     
     centrePoint.setX(getWidth() / 2);
     centrePoint.setY(getHeight() / 2);
@@ -110,6 +110,9 @@ void MainComponent::resized()
 
 void MainComponent::timerCallback()
 {
+    centrePoint.setX(getWidth() / 2);
+    centrePoint.setY(getHeight() / 2);
+    
     if (circleDataPtr->nextFFTBlockReady)
     {
         circleDataPtr->drawNextFrameOfSpectrum();
