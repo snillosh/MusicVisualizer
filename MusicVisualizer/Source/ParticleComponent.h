@@ -25,6 +25,8 @@ public:
     
     bool step();
     
+    static juce::Colour getRandomColour();
+    
     Point<float> position, speed;
     Colour colour;
     float xDir, yDir;

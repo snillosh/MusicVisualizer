@@ -127,6 +127,7 @@ void FFTCircleComponent::paint (juce::Graphics& g)
     
     
     
+    
     //g.strokePath(FFTConnectingLineLeft, juce::PathStrokeType (1.f));
     //g.strokePath(FFTConnectingLineRight, juce::PathStrokeType (1.f));
     g.setColour(juce::Colours::darkred);

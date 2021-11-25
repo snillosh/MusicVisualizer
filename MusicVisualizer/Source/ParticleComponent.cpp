@@ -15,7 +15,7 @@
 ParticleComponent::ParticleComponent(Point<float> pos, float xDir, float yDir) : position(pos),
                                                                                  speed(Random::getSystemRandom().nextFloat() *  xDir,
                                                                                  Random::getSystemRandom().nextFloat() * yDir),
-                                                                                 colour(Colours::white)
+                                                                                 colour(getRandomColour())
 {
     setSize(20, 20);
     step();
@@ -41,7 +41,7 @@ void ParticleComponent::paint (juce::Graphics& g)
     g.setColour (juce::Colours::white);
     g.fillEllipse (10.0f, 10.0f, 3.f, 3.0f);
 
-    g.setColour (Colours::grey);
+    g.setColour (colour);
     g.drawEllipse (10.0f, 10.0f, 3.0f, 3.f, 1.0f);
 }
 
@@ -62,4 +62,13 @@ bool ParticleComponent::step()
         return isPositiveAndBelow(position.x, (float) parent->getWidth()) && position.y < (float) parent->getHeight();
     
     return position.y < 400.f && position.x >= -10.f;
+}
+
+Colour ParticleComponent::getRandomColour()
+{
+    auto& random = juce::Random::getSystemRandom();
+     
+    return juce::Colour ((juce::uint8) random.nextInt (256),
+                         (juce::uint8) random.nextInt (256),
+                         (juce::uint8) random.nextInt (256));
 }
