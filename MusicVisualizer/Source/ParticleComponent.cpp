@@ -17,7 +17,7 @@ ParticleComponent::ParticleComponent(Point<float> pos, float xDir, float yDir) :
                                                                                  Random::getSystemRandom().nextFloat() * yDir),
                                                                                  colour(Colours::white)
 {
-    setSize(7, 7);
+    setSize(20, 20);
     step();
 }
 
@@ -27,11 +27,22 @@ ParticleComponent::~ParticleComponent()
 
 void ParticleComponent::paint (juce::Graphics& g)
 {
+    g.setColour(Colours::darkgrey);
+    g.drawEllipse(10.f + ( -5 * speed.getX()), 10.f + ( -5 * speed.getY()), 3.f * 0.2f, 3.f * 0.2f, 1.0f);
+    
+    g.drawEllipse(10.f + ( -4 * speed.getX()), 10.f + ( -4 * speed.getY()), 3.f * 0.4f, 3.f * 0.4f, 1.0f);
+    
+    g.drawEllipse(10.f + ( -3 * speed.getX()), 10.f + ( -3 * speed.getY()), 3.f * 0.6f, 3.f * 0.6f, 1.0f);
+    
+    g.drawEllipse(10.f + ( -2 * speed.getX()), 10.f + ( -2 * speed.getY()), 3.f * 0.8f, 3.f * 0.8f, 1.0f);
+    
+    g.drawEllipse(10.f + ( -1 * speed.getX()), 10.f + ( -1 * speed.getY()), 3.f, 3.f, 1.0f);
+    
     g.setColour (juce::Colours::white);
-    g.fillEllipse (2.0f, 2.0f, (float) getWidth() - 4.0f, (float) getHeight() - 4.0f);
+    g.fillEllipse (10.0f, 10.0f, 3.f, 3.0f);
 
-    g.setColour (Colours::darkgrey);
-    g.drawEllipse (2.0f, 2.0f, (float) getWidth() - 4.0f, (float) getHeight() - 4.0f, 1.0f);
+    g.setColour (Colours::grey);
+    g.drawEllipse (10.0f, 10.0f, 3.0f, 3.f, 1.0f);
 }
 
 bool ParticleComponent::step()

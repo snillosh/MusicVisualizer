@@ -27,7 +27,7 @@ public:
     
     Point<float> position, speed;
     Colour colour;
-    float xDir = 0, yDir = 0;
+    float xDir, yDir;
     bool beatDetected = false;
 
 private:
