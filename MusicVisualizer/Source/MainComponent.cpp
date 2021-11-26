@@ -27,6 +27,8 @@ MainComponent::MainComponent() :
     stopButton.onClick = [this] { stopButtonClicked(); };
     addAndMakeVisible(&stopButton);
     
+    addAndMakeVisible(menuComponent);
+    
     formatManager.registerBasicFormats();
     transportSource.addChangeListener(this);
     
@@ -107,9 +109,11 @@ void MainComponent::paint (juce::Graphics& g)
 
 void MainComponent::resized()
 {
-    openButton.setBounds(10, 10, getWidth() - 20, 30);
-    playButton.setBounds(10, 50, getWidth() - 20, 30);
-    stopButton.setBounds(10, 90, getWidth() - 20, 30);
+    openButton.setBounds(600, 10, 50, 30);
+    playButton.setBounds(600, 50, 50, 30);
+    stopButton.setBounds(600, 90, 50, 30);
+    
+    menuComponent.setBounds(0, 0, 250, 200);
     
     fftCircleComponent.setBounds(0, 120, getWidth(), getHeight() - 120);
     logoComponent.setBounds((getWidth() / 2) - 200, (getHeight() / 2 ) - 140, 400, 400);

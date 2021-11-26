@@ -11,6 +11,7 @@
 #include"FFTCircleData.h"
 #include"LogoComponent.h"
 #include"FreqMagnitudeDetector.h"
+#include"MenuComponent.h"
 
 
 //==============================================================================
@@ -52,6 +53,8 @@ private:
     
     Image backgroundImage;
     Image backgroundImageScaled;
+    
+    MenuComponent menuComponent;
     
     enum TransportState
     {

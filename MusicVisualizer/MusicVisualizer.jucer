@@ -38,6 +38,9 @@
               file="Source/FreqMagnitudeDetector.h"/>
       </GROUP>
       <GROUP id="{90079A79-ECB8-4C71-9D24-CA8B07123A33}" name="GUI">
+        <FILE id="FALfo1" name="MenuComponent.cpp" compile="1" resource="0"
+              file="Source/MenuComponent.cpp"/>
+        <FILE id="S2rXsg" name="MenuComponent.h" compile="0" resource="0" file="Source/MenuComponent.h"/>
         <FILE id="Ak1VVv" name="FFTCircleComponent.cpp" compile="1" resource="0"
               file="Source/FFTCircleComponent.cpp"/>
         <FILE id="K6lfkY" name="FFTCircleComponent.h" compile="0" resource="0"
