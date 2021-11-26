@@ -15,6 +15,10 @@
         <FILE id="tF4wT7" name="logo_info.txt" compile="0" resource="1" file="../../../Waveshape Circle Test 2/Waveshape Circle Test 2/Images/BS AU-logos/logo_info.txt"/>
         <FILE id="ns97l0" name="LOGOTRANS.png" compile="0" resource="1" file="../../../Waveshape Circle Test 2/Waveshape Circle Test 2/Images/BS AU-logos/LOGOTRANS.png"/>
       </GROUP>
+      <FILE id="WO9ffe" name="backgroundImage.jpeg" compile="0" resource="1"
+            file="../../../../backgroundImage.jpeg"/>
+      <FILE id="DIX5UK" name="backgroundImage2.jpeg" compile="0" resource="1"
+            file="../../../../backgroundImage2.jpeg"/>
       <FILE id="c1EtZd" name="BS AU-logos.zip" compile="0" resource="1" file="../../../Waveshape Circle Test 2/Waveshape Circle Test 2/Images/BS AU-logos.zip"/>
     </GROUP>
     <GROUP id="{D7EEFA26-DB59-700E-B873-204737FF5932}" name="Source">
@@ -48,7 +52,7 @@
       </GROUP>
     </GROUP>
   </MAINGROUP>
-  <JUCEOPTIONS JUCE_STRICT_REFCOUNTEDPOINTER="1"/>
+  <JUCEOPTIONS JUCE_STRICT_REFCOUNTEDPOINTER="1" JUCE_ENABLE_REPAINT_DEBUGGING="0"/>
   <EXPORTFORMATS>
     <XCODE_MAC targetFolder="Builds/MacOSX">
       <CONFIGURATIONS>
