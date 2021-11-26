@@ -50,6 +50,9 @@ private:
     //==============================================================================
     // Your private member variables go here...
     
+    Image backgroundImage;
+    Image backgroundImageScaled;
+    
     enum TransportState
     {
         Stopped,

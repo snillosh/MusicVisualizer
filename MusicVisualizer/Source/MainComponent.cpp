@@ -33,6 +33,10 @@ MainComponent::MainComponent() :
     addAndMakeVisible(fftCircleComponent);
     
     addAndMakeVisible(logoComponent);
+    
+    backgroundImage = ImageCache::getFromMemory(BinaryData::backgroundImage2_jpeg, BinaryData::backgroundImage2_jpegSize);
+    backgroundImage.multiplyAllAlphas(0.5f);
+    
 
     // Some platforms require permissions to open input channels so request that here
     if (juce::RuntimePermissions::isRequired (juce::RuntimePermissions::recordAudio)
@@ -95,10 +99,9 @@ void MainComponent::releaseResources()
 void MainComponent::paint (juce::Graphics& g)
 {
     g.fillAll (Colours::black);
-    auto backgroundImage = ImageCache::getFromMemory(BinaryData::backgroundImage2_jpeg, BinaryData::backgroundImage2_jpegSize);
-    auto backgroundImageScaled = backgroundImage.rescaled(getWidth(), getHeight());
     
-    g.drawImageAt(backgroundImage, 0, 0);
+    backgroundImageScaled = backgroundImage.rescaled(getWidth(), getHeight());
+    g.drawImageAt(backgroundImageScaled, 0, 0);
 
 }
 
@@ -110,6 +113,7 @@ void MainComponent::resized()
     
     fftCircleComponent.setBounds(0, 120, getWidth(), getHeight() - 120);
     logoComponent.setBounds((getWidth() / 2) - 200, (getHeight() / 2 ) - 140, 400, 400);
+    repaint();
 }
 
 void MainComponent::timerCallback()
