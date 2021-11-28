@@ -11,6 +11,7 @@
 #pragma once
 
 #include <JuceHeader.h>
+#include <array>
 
 class FFTCircleData
 {
@@ -22,6 +23,7 @@ public:
     void drawNextFrameOfSpectrum();
     void processFFTSampleBySample(float inputSample);
     float getScopeDataAtIndex(int index);
+    std::array<float, 512> getScopeData() {return scopeData;}
     
     enum
     {
@@ -30,10 +32,14 @@ public:
         scopeSize = 512
     };
     
-    float scopeData [scopeSize];
+    //float scopeData [scopeSize];
+    
     bool nextFFTBlockReady = false;
     
 private:
+    
+    std::array <float, scopeSize> scopeData;
+    
     juce::dsp::FFT forwardFFT;
     juce::dsp::WindowingFunction<float> window;
     

@@ -95,6 +95,7 @@ private:
     
     FFTCircleData* circleDataPtr = &fftCircleComponent.fftCircleData;
     bool levelDectectorValue = false;
+    bool beatDetectectorValue = false;
     
     
 

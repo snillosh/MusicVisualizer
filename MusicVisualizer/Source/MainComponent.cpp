@@ -127,13 +127,11 @@ void MainComponent::timerCallback()
     {
         circleDataPtr->drawNextFrameOfSpectrum();
         circleDataPtr->nextFFTBlockReady = false;
+        levelDectectorValue = beatDetector.detectFreqsOverCertainLevel(circleDataPtr->getScopeData());
+        beatDetectectorValue = beatDetector.detectBeat(circleDataPtr->getScopeData());
         
-        for (int i = 0; i < beatDetector.getScopeSizeForLevelDetector(); i++)
-        {
-            levelDectectorValue = beatDetector.detectFreqsOverCertainLevel(circleDataPtr->scopeData[i]);
-        }
         fftCircleComponent.repaint();
-        logoComponent.beatDetected = levelDectectorValue;
+        logoComponent.levelThresholdDetected = levelDectectorValue;
         logoComponent.repaint();
     }
     

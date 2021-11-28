@@ -25,7 +25,8 @@ public:
     void resized() override;
 
     
-    bool beatDetected = false;
+    bool levelThresholdDetected = false;
+    bool beatThresholdDetected = false;
 private:
     float scopeData;
     

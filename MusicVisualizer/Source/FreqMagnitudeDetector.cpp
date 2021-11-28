@@ -12,6 +12,11 @@
 
 FreqMagnitudeDetector::FreqMagnitudeDetector()
 {
+    for ( int i = 0; i < averageArrayLeft.size(); i++)
+    {
+        averageArrayLeft[i] = 0;
+        averageArrayRight[i] = 0;
+    }
     
 }
 
@@ -20,45 +25,93 @@ FreqMagnitudeDetector::~FreqMagnitudeDetector()
     
 }
 
-bool FreqMagnitudeDetector::detectFreqsOverCertainLevel(float inputScopeData)
+bool FreqMagnitudeDetector::detectFreqsOverCertainLevel(std::array<float, 512> scopeDataArray)
 {
-    if (inputScopeData >= threshold)
+    for (int i = 0; i < 20; i++)
+    {
+        levelDetectorArray[i] = scopeDataArray[i];
+        
+        if (levelDetectorArray[i] >= maxLevelDetected)
+        {
+            maxLevelDetected = levelDetectorArray[i];
+        }
+    }
+    if (maxLevelDetected >= threshold)
+    {
+        maxLevelDetected = 0;
+        return true;
+    }
+    else
+    {
+        maxLevelDetected = 0;
+        return false;
+    }
+}
+
+void FreqMagnitudeDetector::setBeatDetectorAverage (std::array<float, 512> scopeDataArray)
+{
+    if (averageArrayCounterLeft == averageArrayLeft.size())
+    {
+        averageArrayLeft[averageArrayCounterLeft] = scopeDataArray[7];
+        averageArrayCounterLeft = 0;
+    }
+    else
+    {
+        averageArrayLeft[averageArrayCounterLeft] = scopeDataArray[7];
+        averageArrayCounterLeft++;
+    }
+    
+    if (averageArrayCounterRight == averageArrayRight.size())
+    {
+        averageArrayRight[averageArrayCounterRight] = scopeDataArray[20];
+        averageArrayCounterRight = 0;
+    }
+    else
+    {
+        averageArrayRight[averageArrayCounterRight] = scopeDataArray[20];
+        averageArrayCounterRight++;
+    }
+}
+
+float FreqMagnitudeDetector::getBeatDetecotrAverageLeft()
+{
+    float beatDetectorAverageLeftSum = 0;
+    
+    for (int i = 0; i < averageArrayLeft.size(); i++)
+    {
+        beatDetectorAverageLeftSum += averageArrayLeft[i];
+    }
+    DBG("Beat Average Left: " << beatDetectorAverageLeftSum / static_cast<float> (averageArrayLeft.size()));
+    return beatDetectorAverageLeftSum / static_cast<float> (averageArrayLeft.size());
+}
+
+float FreqMagnitudeDetector::getBeatDetectorAverageRight()
+{
+    float beatDetectorAverageRightSum = 0;
+    
+    for (int i = 0; i < averageArrayRight.size(); i++)
+    {
+        beatDetectorAverageRightSum += averageArrayRight[i];
+    }
+    return beatDetectorAverageRightSum / static_cast<float> (averageArrayRight.size());
+    
+}
+
+bool FreqMagnitudeDetector::detectBeat(std::array<float, 512> scopeDataArray)
+{
+    setBeatDetectorAverage(scopeDataArray);
+    
+    float averageValueLeft = getBeatDetecotrAverageLeft();
+    float averageValueRight = getBeatDetectorAverageRight();
+    
+    float beatMinValueLeft = averageValueLeft * 2.2f;
+    float beatMinValueRight = averageValueRight * 2.2f;
+    
+    float currentInputValueAtFreqLeft = scopeDataArray[7];
+    float currentInputValueAtFreqRight = scopeDataArray[20];
+    
+    if (currentInputValueAtFreqLeft >= beatMinValueLeft || currentInputValueAtFreqRight >= beatMinValueRight)
         return true;
     else
         return false;
-    
-    
-//    if (levelDetectorArrayIndex == scopeSize)
-//    {
-//        levelDetectorArrayIndex = 0;
-//
-//        for (int i = 0; i < scopeSize; i++)
-//        {
-//            if (levelDetectorArray[i] >= maxLevelDetected)
-//            {
-//                maxLevelDetected = levelDetectorArray[i];
-//            }
-//        }
-//        if (maxLevelDetected >= threshold)
-//        {
-//            maxLevelDetected = 0;
-//            return true;
-//        }
-//        else
-//        {
-//            maxLevelDetected = 0;
-//            return false;
-//        }
-//    }
-//    else
-//    {
-//        levelDetectorArray[levelDetectorArrayIndex] = inputScopeData;
-//        levelDetectorArrayIndex++;
-//        return false;
-//    }
-}
-
-bool FreqMagnitudeDetector::detectBeat (float freq1, float freq2)
-{
-    return false;
 }

@@ -11,6 +11,7 @@
 #pragma once
 
 #include <JuceHeader.h>
+#include <array>
 
 
 
@@ -20,20 +21,28 @@ public:
     FreqMagnitudeDetector();
     ~FreqMagnitudeDetector();
     
-    bool detectFreqsOverCertainLevel (float inputScopeData);
-    bool detectBeat (float freq1, float freq2);
+    bool detectFreqsOverCertainLevel (std::array<float, 512> scopeDataArray);
+    
+    void setBeatDetectorAverage (std::array<float, 512> scopeDataArray);
+
+    float getBeatDetecotrAverageLeft();
+    
+    float getBeatDetectorAverageRight();
+    
+    bool detectBeat(std::array<float, 512> scopeDataArray);
     
     int getScopeSizeForLevelDetector () {return scopeSize;}
     
 private:
     //detectFreqsOverCertainLevel variables
     
+    std::array <float, 20> levelDetectorArray;
+    
     enum
     {
         scopeSize = 20
     };
     
-    float levelDetectorArray[scopeSize];
     int levelDetectorArrayIndex = 0;
     float maxLevelDetected = 0;
     float threshold = 0.65f;
@@ -45,10 +54,9 @@ private:
     float threshholdRight = 0.f;
     
     //the average level detected over the last 1.5s (90 frames)
-    float averageLeft = 0.f;
-    float averageRight = 0.f;
+    std::array<float, 90> averageArrayLeft;
+    int averageArrayCounterLeft = 0;
     
-    //the level at which a positive beat is detected, returning a true from the function
-    float beatMinimumLeft = averageLeft * 2.2f;
-    float beatMinimumRight = averageRight * 2.2f;
+    std::array<float, 90> averageArrayRight;
+    int averageArrayCounterRight = 0;
 };
