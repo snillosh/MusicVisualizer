@@ -5,15 +5,13 @@ MainComponent::MainComponent() :
                                  state(Stopped),
                                  openButton("Open"),
                                  playButton("Play"),
-                                 stopButton("Stop"),
-                                 forwardFFT(fftOrder),
-                                 window(fftSize, juce::dsp::WindowingFunction<float>::blackman)
+                                 stopButton("Stop")
 {
     // Make sure you set the size of the component after
     // you add any child components.
-    setSize (1280, 1280);
+    setSize (1920, 1080);
     setAudioChannels(0, 2);
-    Timer::startTimerHz(60);
+    Timer::startTimerHz(30);
     
     centrePoint.setX(getWidth() / 2);
     centrePoint.setY(getHeight() / 2);
@@ -27,7 +25,7 @@ MainComponent::MainComponent() :
     stopButton.onClick = [this] { stopButtonClicked(); };
     addAndMakeVisible(&stopButton);
     
-    addAndMakeVisible(menuComponent);
+    //addAndMakeVisible(menuComponent);
     
     formatManager.registerBasicFormats();
     transportSource.addChangeListener(this);
@@ -113,7 +111,7 @@ void MainComponent::resized()
     playButton.setBounds(600, 50, 50, 30);
     stopButton.setBounds(600, 90, 50, 30);
     
-    menuComponent.setBounds(0, 0, 250, 200);
+    //menuComponent.setBounds(0, 0, 250, 200);
     
     fftCircleComponent.setBounds(0, 120, getWidth(), getHeight() - 120);
     logoComponent.setBounds((getWidth() / 2) - 200, (getHeight() / 2 ) - 140, 400, 400);

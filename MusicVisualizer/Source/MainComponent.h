@@ -39,13 +39,6 @@ public:
     
     void pushNextSampleIntoFifo (float sample) noexcept;
     void drawNextFrameOfSpectrum();
-    
-    enum
-    {
-        fftOrder  = 11,
-        fftSize = 1 << fftOrder,
-        scopeSize = 512
-    };
 
 private:
     //==============================================================================
@@ -54,7 +47,7 @@ private:
     Image backgroundImage;
     Image backgroundImageScaled;
     
-    MenuComponent menuComponent;
+    //MenuComponent menuComponent;
     
     enum TransportState
     {
@@ -80,7 +73,6 @@ private:
     void randomlyGenerateNewParticles(OwnedArray<ParticleComponent>& particleArray, int amountOfParticles, float xDir, float yDir, Point<float> newCentrePoint);
     
     std::unique_ptr<juce::FileChooser> chooser;
-    
     juce::AudioFormatManager formatManager;
     std::unique_ptr<juce::AudioFormatReaderSource> readerSource;
     juce::AudioTransportSource transportSource;
@@ -90,9 +82,6 @@ private:
     juce::TextButton playButton;
     juce::TextButton stopButton;
     
-    juce::dsp::FFT forwardFFT;
-    juce::dsp::WindowingFunction<float> window;
-    
     Point<float> centrePoint;
     OwnedArray<ParticleComponent> particlesTopLeft;
     OwnedArray<ParticleComponent> particlesTopRight;
@@ -100,7 +89,6 @@ private:
     OwnedArray<ParticleComponent> particlesBottomRight;
     
     FFTCircleComponent fftCircleComponent;
-    FFTCircleComponent test;
     LogoComponent logoComponent;
     
     FreqMagnitudeDetector beatDetector;
