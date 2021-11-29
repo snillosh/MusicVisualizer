@@ -81,7 +81,7 @@ float FreqMagnitudeDetector::getBeatDetecotrAverageLeft()
     {
         beatDetectorAverageLeftSum += averageArrayLeft[i];
     }
-    DBG("Beat Average Left: " << beatDetectorAverageLeftSum / static_cast<float> (averageArrayLeft.size()));
+    //DBG("Beat Average Left: " << beatDetectorAverageLeftSum / static_cast<float> (averageArrayLeft.size()));
     return beatDetectorAverageLeftSum / static_cast<float> (averageArrayLeft.size());
 }
 
@@ -104,14 +104,22 @@ bool FreqMagnitudeDetector::detectBeat(std::array<float, 512> scopeDataArray)
     float averageValueLeft = getBeatDetecotrAverageLeft();
     float averageValueRight = getBeatDetectorAverageRight();
     
-    float beatMinValueLeft = averageValueLeft * 2.2f;
-    float beatMinValueRight = averageValueRight * 2.2f;
+    float beatMinValueLeft = averageValueLeft * 1.15f;
+    float beatMinValueRight = averageValueRight * 1.15f;
     
     float currentInputValueAtFreqLeft = scopeDataArray[7];
     float currentInputValueAtFreqRight = scopeDataArray[20];
     
     if (currentInputValueAtFreqLeft >= beatMinValueLeft || currentInputValueAtFreqRight >= beatMinValueRight)
+    {
+        //DBG("Beat");
         return true;
+    }
+        
     else
+    {
+        //DBG("-------");
         return false;
+    }
+        
 }

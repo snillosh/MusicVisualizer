@@ -150,7 +150,7 @@ void FFTCircleComponent::drawFrame (juce::Graphics& g)
                         (float) juce::jmap (i,     0, FFTCircleData::scopeSize - 1, 0, width),
                                 juce::jmap (scopeData[i],     0.0f, 1.0f, (float) height, 0.0f) });
     }
-    for (int i = 20; i < 35; ++i)
+    for (int i = 7; i < 20; ++i)
     {
         auto width  = getLocalBounds().getWidth();
         auto height = getLocalBounds().getHeight();

@@ -132,6 +132,7 @@ void MainComponent::timerCallback()
         
         fftCircleComponent.repaint();
         logoComponent.levelThresholdDetected = levelDectectorValue;
+        logoComponent.beatThresholdDetected = beatDetectectorValue;
         logoComponent.repaint();
     }
     

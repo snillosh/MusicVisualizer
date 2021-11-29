@@ -33,6 +33,9 @@ public:
     
     int getScopeSizeForLevelDetector () {return scopeSize;}
     
+    float getLevelDetectorThreshold () {return threshold;}
+    void setLevelDetectorThreshold (float newThreshold) { threshold = newThreshold; }
+    
 private:
     //detectFreqsOverCertainLevel variables
     

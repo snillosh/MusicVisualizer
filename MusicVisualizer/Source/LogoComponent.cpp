@@ -29,6 +29,8 @@ void LogoComponent::paint (juce::Graphics& g)
     auto logoScaled = logo.rescaled(400 , 400);
     g.drawImageAt(logoScaled, 0, 0);
     
+    
+    
     if (beatThresholdDetected == true) {
         g.setColour(Colours::green);
         g.fillEllipse((getWidth() / 2) - 25, (getHeight() / 2) - 25, 50, 50);
