@@ -49,6 +49,9 @@ private:
     
     //MenuComponent menuComponent;
     
+    AudioDeviceManager newAudioDeviceManager;
+    std::unique_ptr<AudioDeviceSelectorComponent> audioSettings;
+    
     enum TransportState
     {
         Stopped,

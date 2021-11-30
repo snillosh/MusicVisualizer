@@ -1,7 +1,7 @@
 #include "MainComponent.h"
 
 //==============================================================================
-MainComponent::MainComponent() :
+MainComponent::MainComponent() : juce::AudioAppComponent(newAudioDeviceManager),
                                  state(Stopped),
                                  openButton("Open"),
                                  playButton("Play"),
@@ -9,9 +9,15 @@ MainComponent::MainComponent() :
 {
     // Make sure you set the size of the component after
     // you add any child components.
+    
+    newAudioDeviceManager.initialise(0, 2, nullptr, true);
+    audioSettings.reset(new AudioDeviceSelectorComponent(newAudioDeviceManager, 0, 2, 0, 2, true, true, true, true));
+    addAndMakeVisible(audioSettings.get());
+    
+    
     setSize (1920, 1080);
-    setAudioChannels(0, 2);
-    Timer::startTimerHz(30);
+    setAudioChannels(2, 2);
+    Timer::startTimerHz(60);
     
     centrePoint.setX(getWidth() / 2);
     centrePoint.setY(getHeight() / 2);
@@ -48,7 +54,7 @@ MainComponent::MainComponent() :
     else
     {
         // Specify the number of input and output channels that we want to open
-        setAudioChannels (0, 2);
+        setAudioChannels (2, 2);
     }
 }
 
@@ -110,12 +116,13 @@ void MainComponent::resized()
     openButton.setBounds(600, 10, 50, 30);
     playButton.setBounds(600, 50, 50, 30);
     stopButton.setBounds(600, 90, 50, 30);
+    audioSettings->setBounds(10, 10, 250, 200);
     
     //menuComponent.setBounds(0, 0, 250, 200);
     
     fftCircleComponent.setBounds(0, 120, getWidth(), getHeight() - 120);
-    logoComponent.setBounds((getWidth() / 2) - 200, (getHeight() / 2 ) - 140, 400, 400);
-    repaint();
+    logoComponent.setBounds((getWidth() / 2) - 100, (getHeight() / 2 ) - 40, 200, 200);
+    //repaint();
 }
 
 void MainComponent::timerCallback()
@@ -131,9 +138,9 @@ void MainComponent::timerCallback()
         beatDetectectorValue = beatDetector.detectBeat(circleDataPtr->getScopeData());
         
         fftCircleComponent.repaint();
-        logoComponent.levelThresholdDetected = levelDectectorValue;
-        logoComponent.beatThresholdDetected = beatDetectectorValue;
-        logoComponent.repaint();
+//        logoComponent.levelThresholdDetected = levelDectectorValue;
+//        logoComponent.beatThresholdDetected = beatDetectectorValue;
+//        logoComponent.repaint();
     }
     
     updateParticlePositions(particlesTopLeft);
@@ -143,10 +150,10 @@ void MainComponent::timerCallback()
     
     if  (levelDectectorValue == true)
     {
-        randomlyGenerateNewParticles(particlesTopLeft, 50, 2.0f, -3.0f, centrePoint);
-        randomlyGenerateNewParticles(particlesTopRight, 50, -2.0f, -3.0f, centrePoint);
-        randomlyGenerateNewParticles(particlesBottomLeft, 50, -2.0f, 3.0f, centrePoint);
-        randomlyGenerateNewParticles(particlesBottomRight, 50, 2.0f, 3.0f, centrePoint);
+        randomlyGenerateNewParticles(particlesTopLeft, 25, 2.0f, -3.0f, centrePoint);
+        randomlyGenerateNewParticles(particlesTopRight, 25, -2.0f, -3.0f, centrePoint);
+        randomlyGenerateNewParticles(particlesBottomLeft, 25, -2.0f, 3.0f, centrePoint);
+        randomlyGenerateNewParticles(particlesBottomRight, 25, 2.0f, 3.0f, centrePoint);
     }
 }
 

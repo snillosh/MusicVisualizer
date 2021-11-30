@@ -39,7 +39,7 @@ void FFTCircleComponent::paint (juce::Graphics& g)
     juce::Path FFTConnectingLineLeft;
     juce::Path FFTConnectingLineRight;
     
-    centreCirclePath.addEllipse((getWidth() / 2) - 163, (getHeight() / 2) - 163, 326, 326);
+    centreCirclePath.addEllipse((getWidth() / 2) - 81.5f, (getHeight() / 2) - 81.5f, 163, 163);
     
     g.setColour(juce::Colours::orange);
     g.strokePath(centreCirclePath, juce::PathStrokeType (2.5f));
@@ -128,7 +128,7 @@ void FFTCircleComponent::paint (juce::Graphics& g)
     g.fillPath(FFTConnectingLineLeft);
     g.fillPath(FFTConnectingLineRight);
     
-    drawFrame(g);
+    //drawFrame(g);
 }
 
 void FFTCircleComponent::resized()

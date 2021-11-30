@@ -25,7 +25,7 @@ FreqMagnitudeDetector::~FreqMagnitudeDetector()
     
 }
 
-bool FreqMagnitudeDetector::detectFreqsOverCertainLevel(std::array<float, 512> scopeDataArray)
+bool FreqMagnitudeDetector::detectFreqsOverCertainLevel(std::array<float, 256> scopeDataArray)
 {
     for (int i = 0; i < 20; i++)
     {
@@ -48,7 +48,7 @@ bool FreqMagnitudeDetector::detectFreqsOverCertainLevel(std::array<float, 512> s
     }
 }
 
-void FreqMagnitudeDetector::setBeatDetectorAverage (std::array<float, 512> scopeDataArray)
+void FreqMagnitudeDetector::setBeatDetectorAverage (std::array<float, 256> scopeDataArray)
 {
     if (averageArrayCounterLeft == averageArrayLeft.size())
     {
@@ -97,7 +97,7 @@ float FreqMagnitudeDetector::getBeatDetectorAverageRight()
     
 }
 
-bool FreqMagnitudeDetector::detectBeat(std::array<float, 512> scopeDataArray)
+bool FreqMagnitudeDetector::detectBeat(std::array<float, 256> scopeDataArray)
 {
     setBeatDetectorAverage(scopeDataArray);
     

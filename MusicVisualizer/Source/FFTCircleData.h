@@ -23,13 +23,13 @@ public:
     void drawNextFrameOfSpectrum();
     void processFFTSampleBySample(float inputSample);
     float getScopeDataAtIndex(int index);
-    std::array<float, 512> getScopeData() {return scopeData;}
+    std::array<float, 256> getScopeData() {return scopeData;}
     
     enum
     {
         fftOrder  = 11,
         fftSize = 1 << fftOrder,
-        scopeSize = 512
+        scopeSize = 256
     };
     
     //float scopeData [scopeSize];

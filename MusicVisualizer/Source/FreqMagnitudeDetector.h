@@ -21,15 +21,15 @@ public:
     FreqMagnitudeDetector();
     ~FreqMagnitudeDetector();
     
-    bool detectFreqsOverCertainLevel (std::array<float, 512> scopeDataArray);
+    bool detectFreqsOverCertainLevel (std::array<float, 256> scopeDataArray);
     
-    void setBeatDetectorAverage (std::array<float, 512> scopeDataArray);
+    void setBeatDetectorAverage (std::array<float, 256> scopeDataArray);
 
     float getBeatDetecotrAverageLeft();
     
     float getBeatDetectorAverageRight();
     
-    bool detectBeat(std::array<float, 512> scopeDataArray);
+    bool detectBeat(std::array<float, 256> scopeDataArray);
     
     int getScopeSizeForLevelDetector () {return scopeSize;}
     
